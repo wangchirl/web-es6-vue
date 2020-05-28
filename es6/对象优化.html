@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+    <script>
+
+        const person = {
+            naem : 'shadow',
+            age : 18,
+            language:['java','php','shell']
+        }
+        
+        console.log(Object.keys(person)); // 取出keys
+        console.log(Object.values(person)); // 取出 values
+        console.log(Object.entries(person)); // 取出keys,values
+
+
+        const target = {a : 1};
+        const source = {b : 2};
+        const source1 = {c : 3};
+
+        // {a : 1,b : 2, c : 3}
+        Object.assign(target,source,source1);
+        console.log(target);
+
+        // 声明对象简化
+        const name = 'shadow';
+        const age = 18;
+        const man = {name : name,age : age};
+        // 简化 属性名称和值名称一样可以简写
+        const man1 = {name,age}; 
+        console.log(man1);
+
+        // 对象的函数属性简写
+        let person1 = {
+            name : 'shadow',
+            eat : function(food){
+                console.log(this.name + ' eat ' + food);
+            },
+            // 箭头函数不能使用 this ,需要使用 对象.属性
+            eat1: food => console.log(this.name + '在吃' + food),
+            eat2: food => console.log(person1.name + '在吃' + food),
+            eat3(food){
+                console.log(this.name + '正在吃' + food);
+            }
+        }
+        person1.eat('bannanar');
+        person1.eat1('apple');
+        person1.eat2('orange');
+        person1.eat3('food');
+
+
+        // 对象的扩展运算符
+        // 拷贝对象（深拷贝）
+        let p1 = {name : 'shadow', age : 18};
+        let p2 = {...p1};
+        console.log(p1);
+
+        // 合并对象
+        let age1 = {age : 10};
+        let name1 = {name : 'shadow'};
+        let pp = {name : 'jack'};
+        pp = {...age1, ...name1}; 
+        console.log(pp); // {age:10,name:'shadow'}
+
+    </script>
+
+</html>

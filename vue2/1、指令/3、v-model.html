@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双向绑定</title>
+</head>
+
+<body>
+    <div id="app">
+        精通的编程语言：
+        <input v-model="language" value="Java" type="checkbox" />Java <br/>
+        <input v-model="language"  value="PHP" type="checkbox" />PHP <br/>
+        <input v-model="language"  value="Python" type="checkbox" />Python <br/>
+    </div>
+</body>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data:{
+                language:[]
+            }
+        })
+    </script>
+</html>

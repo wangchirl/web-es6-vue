@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+    <script>
+
+        let arr = [1,2,3];
+        // let a = arr[0];
+        // let b = arr[1];
+        // let c = arr[2];
+
+        let [a,b,c] = arr;
+        console.log(a,b,c)
+
+
+        const person = {
+            name:"shadow",
+            age:22,
+            language:['java','php','shell']
+        }
+
+        // const name = person.name;
+        // const age = person.age;
+        // const language = person.language;
+
+        // 对象解构
+        const {name:abc,age,language} = person;
+
+        console.log(abc,age,language);
+
+
+        // 字符串扩展
+        let str = "hello vue";
+        console.log(str.startsWith("hello"));
+        console.log(str.endsWith("vue"));
+        console.log(str.includes("o"));
+        console.log(str.includes("hello"));
+
+        // 字符串模板
+        let h1 = `
+            <h1>
+                <span>hello world</span>
+            </h1>
+        `;
+        console.log(h1);
+
+        // 字符串插入变量和表达式，变量名写在${}中，${}中可以放入 JavaScript 表达式
+        function fun(){
+            return "这是一个函数";
+        }
+        let info = `我是 ${abc},今年${age + 6}了,我想说${fun()}`;
+        console.log(info);
+
+
+        
+
+    </script>
+
+</html>

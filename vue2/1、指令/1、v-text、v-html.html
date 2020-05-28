@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本域</title>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}} {{hello() + 1}}<br/>
+        <span v-html="msg"></span>
+        <br/>
+        <span v-text="msg"></span>
+    </div>
+</body>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+
+        let vm = new Vue({
+            el: "#app",
+            data :{
+                msg:"<h1>Hello World</h1>"
+            },
+            methods: {
+                hello(){
+                    return 10;
+                }
+            },
+        });
+
+    </script>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 
+        1. v-if、v-show的区别
+            1）v-if为false是dom不渲染，v-show则是加display:none的属性
+        2. v-if、v-show的优先级低于 v-for
+    -->
+    <div id="app">
+        <button v-on:click="random=Math.random()">点我</button>
+        <span>{{random}}</span>
+
+        <h1 v-if="random>=0.75"> &gt;=0.75</h1>
+        <h1 v-else-if="random>=0.5"> &gt;=0.5</h1>
+        <h1 v-else-if="random>=0.2"> &gt;=0.2</h1>
+        <h1 v-else> &lt;0.2</h1>
+
+        <h1 v-if="flag">不显示</h1>
+        <h1 v-show="flag">不显示</h1>
+
+    </div>
+</body>
+
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            random: 1,
+            flag: false
+        }
+    })
+</script>
+
+</html>

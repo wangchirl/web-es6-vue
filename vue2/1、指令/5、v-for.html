@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(user,index) in users" :key="index">
+                <!--
+                    1. 显示user信息： v-for="item in items"
+                    2. 获取数组下标：v-for="(item,index) in items"
+                    3. 遍历对象：
+                        v-for="value in object"
+                        v-for="(value,key) in object"
+                        v-for="(value,key,index) in object"
+                    4. 遍历的时候都可以加上 :key 来区分不同数据，提高vue渲染效率
+                -->
+                {{user.name}} ==> {{user.gender}} ==> {{user.age}} <br/>
+                {{user.name}} ==> {{user.gender}} ==> {{user.age}} ==> {{index}}
+                <br/>
+                <span v-for="(v,k,i) in user" :key="k">
+                    {{k}} ==> {{v}} ==> {{i}}
+                </span>
+            </li>
+        </ul>
+    </div>
+</body>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data:{
+                users:[
+                    {name:'蔡徐坤',age:90,gender:'女'},
+                    {name:'吴亦凡',age:80,gender:'女'},
+                    {name:'鹿晗',age:70,gender:'女'},
+                    {name:'范冰冰',age:60,gender:'男'},
+                    {name:'谢娜',age:90,gender:'男'}
+                ]
+            },
+            methods: {
+                
+            },
+        })
+    </script>
+</html>

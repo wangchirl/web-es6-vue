@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性绑定</title>
+</head>
+
+<body>
+    <div id="app">
+        <a v-bind:href="link">去百度</a>
+
+        <!-- class style -->
+        <span v-bind:class="{active:isActive,'text-danger':hasError}" v-bind:style="{color:color1,fontSize: size}">你好</span>
+    </div>
+</body>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                link:"http://www.baidu.com",
+                isActive:true,
+                hasError:true,
+                color1:"red",
+                size:"30px"
+            },
+            methods: {
+                
+            },
+        })
+    </script>
+</html>

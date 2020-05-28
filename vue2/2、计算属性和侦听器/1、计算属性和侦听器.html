@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--某些结果是基于之前数据实时计算出来的，我们可以利用计算属性来完成-->
+        <ul>
+            <span style="color: red;">{{msg}}</span>
+            <li>西游记：价格：{{xyjPrice}} 数量：<input v-model="xyjNum" type="number"></li>
+            <li>水浒传：价格：{{shzPrice}} 数量：<input v-model="shzNum" type="number"></li>
+            <li>总价格：{{totle}}</li>
+        </ul>
+        
+    </div>
+</body>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            // 属性
+            data:{
+                xyjPrice:99,
+                xyjNum:1,
+                shzPrice:88,
+                shzNum:1,
+                msg:""
+            },
+            // 方法
+            methods: {
+                
+            },
+            // 计算属性
+            computed: {
+                totle(){
+                    return this.xyjNum*this.xyjPrice + this.shzNum*this.shzPrice;
+                }
+            },
+            // 监听
+            watch: {
+                // 监听 xyjNum
+                xyjNum:function(nVal,oVal){
+                    if(nVal >= 3){
+                        this.msg = "库存超出限制";
+                        this.xyjNum = 3;
+                    }else{
+                        this.msg = "";
+                    }
+                }
+            },
+        })
+    </script>
+</html>

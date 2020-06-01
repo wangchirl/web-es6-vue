@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AES加密明文内容后RSA再次对AES加密后的内容进行加密</title>
+</head>
+
+<body>
+<script src="G:\2019-back\AesRsa加密\crypto-js.js"></script>
+<script src="G:\2019-back\AesRsa加密\jsencrypt.js"></script>
+<!--<script src="Base64.js"></script>-->
+<script>
+/**
+ * AES加密
+ * @param word
+ * @returns {*}
+ */
+function encrypt(word){
+    var key = CryptoJS.enc.Utf8.parse("wwqqeerrttyyuuii");
+    var srcs = CryptoJS.enc.Utf8.parse(word);
+    var encrypted = CryptoJS.AES.encrypt(srcs, key, {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
+    return encrypted.toString();
+}
+
+/**
+ * AES解密
+ * @param word
+ * @returns {*}
+ */
+function decrypt(word){
+    var key = CryptoJS.enc.Utf8.parse("wwqqeerrttyyuuii");
+    var decrypt = CryptoJS.AES.decrypt(word, key, {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
+    return CryptoJS.enc.Utf8.stringify(decrypt).toString();
+}
+
+
+/**
+ * RSA加密
+ * @param content  需要RSA加密的内容(此处是AES加密后的内容进行RSA再次加密)
+ * @param publicKey  RSA公钥
+ * @returns {*}
+ */
+ function rsaencrypt(content,publicKey){
+    var encrypt = new JSEncrypt();
+    encrypt.setPublicKey(publicKey);
+    return encrypt.encrypt(content);
+ }
+
+
+ /**
+  * RSA解密
+  * @param content  RSA加密内容
+  * @param privateKey  RSA私钥
+  * @returns {*}
+  */
+
+  function rsadecrypt(content,privateKey){
+    var decrypt = new JSEncrypt();
+    decrypt.setPrivateKey(privateKey);
+    return decrypt.decrypt(content);
+  }
+
+
+    var publicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCjIp6TuqWY+xQXN9q/RCr81Eld'+
+                        'cvNkCB8z9e9kATao2/AP6iP13z3divfdRilzv600xYXSRIubdlYzIVQyUVRTMS/N'+
+                        '3ByAg18csPndLEslvjnHlhtSEo8hFdTcD8pA9HA+ZP3GoHKEPcqRdCedq/WlFL8o'+
+                        'PBgLIr5EgPHdiL34gwIDAQAB';
+
+    var privateKey = 'MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAKMinpO6pZj7FBc3'+
+                        '2r9EKvzUSV1y82QIHzP172QBNqjb8A/qI/XfPd2K991GKXO/rTTFhdJEi5t2VjMh'+
+                        'VDJRVFMxL83cHICDXxyw+d0sSyW+OceWG1ISjyEV1NwPykD0cD5k/cagcoQ9ypF0'+
+                        'J52r9aUUvyg8GAsivkSA8d2IvfiDAgMBAAECgYBh7tOB3gexmfEKqzY/oj2oQAy2'+
+                        '894XTCTnPZnz0CKvJjGsbCQgY18xU07PYGJcIVJqnrVicFHbByRiV3zDJD3ZKfXv'+
+                        'PPoLaKTBvs1GcZkUMrxZ7fKJbQ0tiNNYCu0ub6XWeyytCl+3DfI7fjXwh61IVr1J'+
+                        'QwD+6QDknYBUc16fGQJBANIQ/iCJnyeKchZEje5polkvtvy7xUa2FzYKku77Zok8'+
+                        '90FU6GJbAYvzoZTHkLJWRIgLEFL0TuMHIJQeo9jo7i8CQQDGzojrQRlxiV3H0FMR'+
+                        'jyaK84ihJwW3Wo3aZZK2cEynkb5uBOm6E0+Q3GMMQb5L4+T6N3XwjkXh3+A37y+J'+
+                        'vzntAkEAo1LG4nFdppaDgUCnwTesG/93HCS5ivLENSYfe2NHI2idLNRhISd0mmU/'+
+                        'ubc3jxB3k/ZWKMj+FJFUCRWRenIPzQJBAL4Ti775f90Yi+xV1oYsSpqBWzlQuNtk'+
+                        'HcoYYRxC5Fc2Nk60Lc81VVZYD+8REGM4oZ1F12JGdLQPuy1fZyEZDsUCQQCOae2A'+
+                        'KM6tYG0rs9R5fF0gx3PWbHhWqWVrpiu8llxOiD64zzzXU13OCkW+ebhugRITL+S7'+
+                        'frm1YoJfvRprl5Za';
+
+    //base64编码
+    // var bs = new Base64()
+    // var v = bs.encode("")
+    // console.log('Base64编码后：'+ v)
+// var s = 'this is a test about a string to long big start end list handle list array asa wa awa aw'
+    var s = "这是这个啊";
+// 前端加密前将所有中文encoder掉
+// 此函数是js原生函数
+    var mm =  encrypt(s);
+    console.log('AES加密后：'+ mm)
+    var jm = decrypt(mm)
+    console.log('AES解密后：'+ jm)
+
+    var rsamm = rsaencrypt(mm,publicKey);
+    console.log('RSA加密后：'+ rsamm)
+
+    var rsajm = rsadecrypt(rsamm,privateKey)
+    console.log('RSA解密后：'+ rsajm)
+
+    //创建异步对象
+    var xhr = new XMLHttpRequest();
+    //设置请求的类型及url
+    //post请求一定要添加请求头才行不然会报错
+
+    xhr.open('post', 'test' );
+	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    //发送请求
+    xhr.send('password='+rsamm);
+    xhr.onreadystatechange = function () {
+    // 这步为判断服务器是否正确响应
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText);
+        }
+    };
+    </script>
+</body>
+</html>
